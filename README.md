@@ -52,7 +52,7 @@ info response_from_standalone;
 ```
 
 
-Tasks for contacts with or without account lookup
+Tasks for contacts AND Accounts. 
 ```
 c_map = Map();
 contact_record = zoho.crm.getRecordById("Contacts",contact_id);
