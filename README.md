@@ -76,7 +76,7 @@ createTask = zoho.crm.createRecord("Tasks",c_map);
 info createTask;
 return createTask;
 ```
-For Deals, Who_ID = either contact_id or lead_id, and What_Id= deals_id, $se_module = "Deals" 
+For Deals, Who_Id = either contact_id or lead_id, and What_Id= deals_id, $se_module = "Deals" 
 ```
 c_map = Map();
 deal_record = zoho.crm.getRecordById("Deals",deal_id);
