@@ -12,7 +12,7 @@ Create the standalone function that you want to call
 
 <img src="Image 9-19-23 at 4.50 AM.jpeg" width="600">
 
-Add the parameter and make note of the function name with underscores. Add the task code (leads snippet below)
+Add the parameter and make note of the function name with underscores. Add the function code (create a task for a lead snippet below)
 
 <img src="Image 9-19-23 at 5.32 AM.jpeg" width="600">
 
