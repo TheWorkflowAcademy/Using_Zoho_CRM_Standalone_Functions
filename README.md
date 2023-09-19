@@ -52,7 +52,7 @@ info response_from_standalone;
 ```
 
 
-Tasks for contacts AND associated accounts. Essentially, adds the Account record to the task. If you only want tasks on the Contact records, $se_module = "Contacts" and remove the "What_Id" mapping. For Deals, Who_ID = either contact_id or lead_id, and What_Id= deals_i
+Tasks for contacts AND associated accounts. Essentially, adds the Account record to the task. If you only want tasks on the Contact records, $se_module = "Contacts" and remove the "What_Id" mapping. 
 ```
 c_map = Map();
 contact_record = zoho.crm.getRecordById("Contacts",contact_id);
@@ -68,6 +68,29 @@ reminder_date_time = zoho.currenttime.addDay(1).toTime();
 c_map.put("Subject","Contact Follow up");
 c_map.put("Who_Id",input.contact_id);
 c_map.put("Owner",contact_record.get("Owner").get("id"));
+c_map.put("Due_Date",zoho.currenttime.toDate().addDay(2));
+c_map.put("Remind_At",{"ALARM":"FREQ=NONE;ACTION=EMAIL;TRIGGER=DATE-TIME:" + reminder_date_time.toString("yyyy-MM-dd'T'HH:mm:ss'+05:30'")});
+c_map.put("Status","Not Started");
+c_map.put("Send_Notification_Email",true);
+createTask = zoho.crm.createRecord("Tasks",c_map);
+info createTask;
+return createTask;
+```
+For Deals, Who_ID = either contact_id or lead_id, and What_Id= deals_id, $se_module = "Deals" 
+```
+c_map = Map();
+deal_record = zoho.crm.getRecordById("Deals",deal_id);
+
+if(deal_record.get("Contact_Name") != null)
+{
+	contact_id = deal_record.get("Contact_Name").get("id");
+	c_map.put("Who_Id",input.contact_id);
+}
+reminder_date_time = zoho.currenttime.addDay(1).toTime();
+c_map.put("What_Id", deal_id);
+c_map.put("$se_module","Deals");
+c_map.put("Subject","Deal Follow up");
+c_map.put("Owner",deal_record.get("Owner").get("id"));
 c_map.put("Due_Date",zoho.currenttime.toDate().addDay(2));
 c_map.put("Remind_At",{"ALARM":"FREQ=NONE;ACTION=EMAIL;TRIGGER=DATE-TIME:" + reminder_date_time.toString("yyyy-MM-dd'T'HH:mm:ss'+05:30'")});
 c_map.put("Status","Not Started");
