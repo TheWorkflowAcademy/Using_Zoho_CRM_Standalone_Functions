@@ -48,8 +48,29 @@ response_from_standalone = standalone.create_lead_task(lead_id);
 
 info response_from_standalone;
 
+for contacts with or without account lookup
 ```
-
+c_map = Map();
+contact_record = zoho.crm.getRecordById("Contacts",contact_id);
+if(contact_record.get("Account_Name") != null){
+	account_id = contact_record.get("Account_Name").get("id");
+	c_map.put("What_Id", account_id );
+	c_map.put("$se_module","Accounts");
+}
+else{
+	c_map.put("$se_module","Contacts");
+}
+reminder_date_time = zoho.currenttime.addDay(1).toTime();
+c_map.put("Subject","Contact Follow up");
+c_map.put("Who_Id",input.contact_id);
+c_map.put("Owner",contact_record.get("Owner").get("id"));
+c_map.put("Due_Date",zoho.currenttime.toDate().addDay(2));
+c_map.put("Remind_At",{"ALARM":"FREQ=NONE;ACTION=EMAIL;TRIGGER=DATE-TIME:" + reminder_date_time.toString("yyyy-MM-dd'T'HH:mm:ss'+05:30'")});
+c_map.put("Status","Not Started");
+c_map.put("Send_Notification_Email",true);
+createTask = zoho.crm.createRecord("Tasks",c_map);
+info createTask;
+return createTask;
 
 
 ```
