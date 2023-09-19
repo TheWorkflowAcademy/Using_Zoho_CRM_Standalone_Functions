@@ -52,7 +52,7 @@ info response_from_standalone;
 ```
 
 
-Tasks for contacts AND Accounts. 
+Tasks for contacts AND associated accounts. Essentially, adds the Account record to the task. If you only want tasks on the Contact records, $se_module = "Contacts" and remove the "What_Id" mapping. 
 ```
 c_map = Map();
 contact_record = zoho.crm.getRecordById("Contacts",contact_id);
