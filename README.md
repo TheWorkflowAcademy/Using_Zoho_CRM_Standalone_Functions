@@ -48,7 +48,11 @@ response_from_standalone = standalone.create_lead_task(lead_id);
 
 info response_from_standalone;
 
-for contacts with or without account lookup
+
+```
+
+
+Tasks for contacts with or without account lookup
 ```
 c_map = Map();
 contact_record = zoho.crm.getRecordById("Contacts",contact_id);
@@ -71,8 +75,4 @@ c_map.put("Send_Notification_Email",true);
 createTask = zoho.crm.createRecord("Tasks",c_map);
 info createTask;
 return createTask;
-
-
-```
-
 ```
